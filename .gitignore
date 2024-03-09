@@ -1,0 +1,5 @@
+.env
+database/
+node_modules/
+dist/
+generated_invite

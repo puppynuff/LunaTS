@@ -1,0 +1,19 @@
+{
+  "name": "luna",
+  "version": "0.0.1",
+  "description": "My 800th rendition of my discord bot!",
+  "main": "./dist/index.js",
+  "scripts": {
+    "test": "tsc && node ."
+  },
+  "author": "ShiroDev",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^14.14.1",
+    "dotenv": "^16.4.5",
+    "glob": "^8.1.0"
+  },
+  "devDependencies": {
+    "terminal-kit": "^3.0.2"
+  }
+}
