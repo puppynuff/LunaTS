@@ -38,11 +38,6 @@ const REGISTER_PLURAL: command = {
             description: "The name of the plural",
             type: "String",
             options: []
-        }, {
-            name: "avatar",
-            description: "The avatar for the plural (url)",
-            type: "String",
-            options: []
         }]
     },
     run: async (LUNA, interaction, message, args) => {
@@ -81,7 +76,7 @@ const REGISTER_PLURAL: command = {
             return;
         }
 
-        message.reply("Not developed for message commands yet! (Interaction commands always come first :3)")
+        message.reply("This command is only supported by interaction commands.");
     }
 }
 

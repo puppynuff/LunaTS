@@ -115,7 +115,7 @@ async function generate_table_info(new_text_input: boolean = false) {
 
     let channels = await getGuildChannelInfo();
 
-    if(!current_channel) current_channel = channels[14].channel_id;
+    if(!current_channel) current_channel = channels[0].channel_id;
 
     for(let i = 0; i < channels.length; i++) {
 

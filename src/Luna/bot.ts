@@ -35,7 +35,7 @@ export class Luna {
             this.CLIENT.user?.setPresence({
                 status: "dnd",
                 activities: [{
-                    name: "Don't be bothered messaging me, account's disabled. Although you can message on steam.",
+                    name: "Working on > Editing messages",
                     type: ActivityType.Custom
                 }]
             });
@@ -72,11 +72,12 @@ export class Luna {
 
             if(message.author.bot == true) return;
 
-            if(!msg.startsWith(this.prefix)) return handle_plurals(this, message);
+            let args: Array<string> = msg.split(" ");
+
+            if(!msg.startsWith(this.prefix)) return handle_plurals(this, message, args);
 
             msg = msg.replace(this.prefix, "");
-
-            let args: Array<string> = msg.split(" ");
+            args[0] = args[0].replace(this.prefix, "");
 
             for(let i = 0; i < this.commands.length; i++) {
                 if(this.commands[i].message.name.toLowerCase() !== args[0].toLowerCase()) continue;

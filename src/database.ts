@@ -75,8 +75,8 @@ export interface plural {
     avatar: string;
     channels: {
         [channel_id: string]: {
-            webhook_id: string;
-            webhook_token: string;
+            webhook_id?: string;
+            webhook_token?: string;
         }
     }
 }
@@ -85,7 +85,7 @@ export interface plural {
 export interface active_plurals {
     [user_id: string]: {
         [plural_prefix: string]: {
-            [channel_id: string]: WebhookClient;
+            [channel_id: string]: WebhookClient | undefined;
         }
     }
 }
