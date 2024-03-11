@@ -1,7 +1,7 @@
 import { ActivityType, Client, Message, CommandInteraction, GatewayIntentBits } from "discord.js";
-import database from "../database";
+import database, { active_plurals } from "../database";
+import handle_plurals from "./events/handle_plurals";
 const glob = require("glob");
-const TERMINAL_KIT = require("terminal-kit");
 
 export class Luna {
     CLIENT: Client;
@@ -9,6 +9,7 @@ export class Luna {
     latest_error: string;
     prefix: string;
     DATABASE: database;
+    active_plurals: active_plurals;
 
     constructor(intents: Array<GatewayIntentBits>, token: string, BOT_DATABASE: database) {
         if(!token) throw new Error("Class is missing the token!");
@@ -25,7 +26,7 @@ export class Luna {
         this.#handleEvents();
 
         this.DATABASE = BOT_DATABASE;
-
+        this.active_plurals = {};
         this.CLIENT.login(token);
     }
 
@@ -71,7 +72,7 @@ export class Luna {
 
             if(message.author.bot == true) return;
 
-            if(!msg.startsWith(this.prefix)) return;
+            if(!msg.startsWith(this.prefix)) return handle_plurals(this, message);
 
             msg = msg.replace(this.prefix, "");
 

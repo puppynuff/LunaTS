@@ -59,7 +59,7 @@ export interface cacheData {
 
 export interface userData {
     id: string;
-    plurals: {
+    plurals?: {
         [prefix: string]: plural;
     };
 }
@@ -69,10 +69,12 @@ export interface guildData {
     ventChannelID?: string;
 }
 
-
+// Check this for the user when it isnt already initialized.
 export interface plural {
-    [channel_id: string]: {
-        [plural_prefix: string]: {
+    name: string;
+    avatar: string;
+    channels: {
+        [channel_id: string]: {
             webhook_id: string;
             webhook_token: string;
         }
@@ -80,7 +82,7 @@ export interface plural {
 }
 
 // If the webhook isn't there, make it and save it.
-interface active_plurals {
+export interface active_plurals {
     [user_id: string]: {
         [plural_prefix: string]: {
             [channel_id: string]: WebhookClient;

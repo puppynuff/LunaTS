@@ -4,7 +4,8 @@
   "description": "My 800th rendition of my discord bot!",
   "main": "./dist/index.js",
   "scripts": {
-    "test": "tsc && node ."
+    "test": "tsc && node .",
+    "test-dc": "tsc && node . --dc"
   },
   "author": "ShiroDev",
   "license": "ISC",

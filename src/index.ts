@@ -40,7 +40,6 @@ let channel_messages: Array<Message> = [];
 
 LUNA.CLIENT.on("ready", async () => {
     await get_guilds();
-
     generate_table_info(true);
 });
 
@@ -61,6 +60,8 @@ async function getGuildChannelInfo() {
 
     return channel_array;
 }
+
+LUNA.CLIENT.on("messageCreate", () => generate_table_info());
 
 
 async function get_guilds() {
@@ -96,9 +97,9 @@ async function get_messages(amount: number) {
     }
 }
 
-LUNA.CLIENT.on("messageCreate", () => generate_table_info());
-
 async function generate_table_info(new_text_input: boolean = false) {
+    if(!process.argv.includes("--dc")) return;
+
     let data  = [
         ['Guilds', 'Channels', 'Messages']
     ]
