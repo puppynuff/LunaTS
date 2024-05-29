@@ -46,14 +46,14 @@ export class Luna {
         this.CLIENT.on("interactionCreate", async(interaction) => {
             if(!interaction.isCommand()) return;
 
-            await interaction.deferReply({ ephemeral: true });
-
+            
             for(let i = 0; i < this.commands.length; i++) {
                 if(this.commands[i].interaction.name !== interaction.commandName) continue;
-
+                
                 try {
-                    await this.commands[i].run(this, interaction, undefined, undefined);
+                    await interaction.deferReply({ ephemeral: this.commands[i].ephemeral });
 
+                    await this.commands[i].run(this, interaction, undefined, undefined);
                     return;
                 } catch(err: any) {
                     this.latest_error = err.message;
@@ -63,7 +63,7 @@ export class Luna {
                 }
             }
 
-            interaction.followUp({ ephemeral: true, content: "Couldn't find command! (For some reason)" });
+            interaction.reply({ ephemeral: true, content: "Couldn't find command! (For some reason)" });
             return;
         });
 
@@ -138,8 +138,8 @@ export interface command {
             options: Array<string>;
         }>;
     };
-
-    run: (LUNA: Luna, interaction: CommandInteraction | undefined, message: Message | undefined, args: Array<string> | undefined) => Promise<void>;
+    ephemeral: boolean;
+    run: (LUNA: Luna, interaction: CommandInteraction | undefined, message: Message | undefined, args: Array<string> | undefined) => Promise<any>;
 }
 
 interface commandOption {

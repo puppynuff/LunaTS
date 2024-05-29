@@ -87,7 +87,8 @@ const REGISTER_VENT_CHANNEL: command = {
         message.reply("Set channel~");
 
         return;
-    }
+    },
+    ephemeral: true
 }
 
 export default REGISTER_VENT_CHANNEL;

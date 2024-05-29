@@ -5,7 +5,8 @@ class database {
     path: string;
     cache: cacheData;
     constructor() {
-        this.path = `${process.cwd().replaceAll("\\", "/")}/database`;
+        this.path = `${process.cwd().replaceAll("\\", "/")}/user_database`;
+        if(!fs.existsSync(this.path)) fs.mkdirSync(this.path);
 
         if(!fs.existsSync(`${this.path}/guild`)) fs.mkdirSync(`${this.path}/guild`);
         if(!fs.existsSync(`${this.path}/user`)) fs.mkdirSync(`${this.path}/user`);

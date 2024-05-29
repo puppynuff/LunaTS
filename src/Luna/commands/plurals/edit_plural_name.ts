@@ -78,6 +78,7 @@ const EDIT_PLURAL_NAME: command = {
             interaction.followUp("Successfully changed the name of the plural!");
             return;
         }
-    }
+    },
+    ephemeral: true
 }
 export default EDIT_PLURAL_NAME;

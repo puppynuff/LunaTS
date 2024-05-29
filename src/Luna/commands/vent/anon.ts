@@ -157,7 +157,8 @@ const ANON: command = {
         channel.send({ embeds: [embed], content: "Please be respectful of the vent, and follow the users wishes." });
         message.delete();
         return;
-    }
+    },
+    ephemeral: true
 }
 
 export default ANON;

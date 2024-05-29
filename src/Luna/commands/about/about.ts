@@ -19,9 +19,8 @@ const ABOUT : command = {
             .setFields([
                 { name: "Developer", value: "Shiro / Puppynuff / Stella" },
                 { name: "Prefix", value: "l. / slash commands"},
-                { name: "Github", value: "Not released on github yet!" },
-                { name: "Version", value: "0.0.5" },
-                { name: "Discord", value: "https://discord.gg/7AYUSJmmJG" }
+                { name: "Github", value: "https://github.com/puppynuff/LunaTS" },
+                { name: "Version", value: "0.0.5" }
             ])
             .setFooter({text: "This is an early rendition of the bot, and doesn't reflect the final product."});
 
@@ -34,7 +33,8 @@ const ABOUT : command = {
         if(!message) return;
         message.reply({ embeds:[EMBED] });
         return;
-    }
+    },
+    ephemeral: false
 }
 
 export default ABOUT;

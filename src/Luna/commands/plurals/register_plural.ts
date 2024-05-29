@@ -77,7 +77,8 @@ const REGISTER_PLURAL: command = {
         }
 
         message.reply("This command is only supported by interaction commands.");
-    }
+    },
+    ephemeral: true
 }
 
 export default REGISTER_PLURAL;

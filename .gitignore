@@ -1,5 +1,5 @@
 .env
-database/
+user_database/
 node_modules/
 dist/
 generated_invite
