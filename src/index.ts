@@ -12,7 +12,13 @@ import { Luna } from "./Luna/bot";
 import { GatewayIntentBits, Message } from "discord.js";
 import database from "./database";
 import fs from "fs";
-const TERMINAL_KIT = require("terminal-kit");
+
+let terminal = require("terminal-kit");
+
+let TERMINAL_KIT: any  = "";
+if(!process.argv.includes("--dc")) {
+    TERMINAL_KIT = require("terminal-kit");
+}
 // Getting environment variables
 dotenv.config();
 
@@ -39,6 +45,8 @@ let bot_messages: Array<Message> = [];
 let channel_messages: Array<Message> = [];
 
 LUNA.CLIENT.on("ready", async () => {
+    console.log("ready!");
+    if(!process.argv.includes("--dc")) return;
     await get_guilds();
     generate_table_info(true);
 });

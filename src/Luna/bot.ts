@@ -1,4 +1,4 @@
-import { ActivityType, Client, Message, CommandInteraction, GatewayIntentBits } from "discord.js";
+import { ActivityType, Client, Message, CommandInteraction, GatewayIntentBits, AutocompleteInteraction } from "discord.js";
 import database, { active_plurals } from "../database";
 import handle_plurals from "./events/handle_plurals";
 const glob = require("glob");
@@ -44,27 +44,39 @@ export class Luna {
         });
 
         this.CLIENT.on("interactionCreate", async(interaction) => {
-            if(!interaction.isCommand()) return;
+            if(interaction.isAutocomplete()) {
+                let autocomplete_interaction: any = interaction;
 
-            
-            for(let i = 0; i < this.commands.length; i++) {
-                if(this.commands[i].interaction.name !== interaction.commandName) continue;
-                
-                try {
-                    await interaction.deferReply({ ephemeral: this.commands[i].ephemeral });
+                for(let i = 0; i < this.commands.length; i++) {
+                    if(this.commands[i].interaction.name !== interaction.commandName) continue;
 
-                    await this.commands[i].run(this, interaction, undefined, undefined);
-                    return;
-                } catch(err: any) {
-                    this.latest_error = err.message;
-                    console.log(err);
-                    interaction.followUp({ ephemeral: true, content: "Error running command!" });
+                    await this.commands[i].autocomplete?.(autocomplete_interaction);
                     return;
                 }
             }
 
-            interaction.reply({ ephemeral: true, content: "Couldn't find command! (For some reason)" });
-            return;
+            if(interaction.isCommand()) {
+                for(let i = 0; i < this.commands.length; i++) {
+                    if(this.commands[i].interaction.name !== interaction.commandName) continue;
+                    
+                    try {
+                        await interaction.deferReply({ ephemeral: this.commands[i].ephemeral });
+    
+                        await this.commands[i].run(this, interaction, undefined, undefined);
+                        return;
+                    } catch(err: any) {
+                        this.latest_error = err.message;
+                        console.log(err);
+                        interaction.followUp({ ephemeral: true, content: "Error running command!" });
+                        return;
+                    }
+                }
+    
+                interaction.reply({ ephemeral: true, content: "Couldn't find command! (For some reason)" });
+                return;
+            }
+
+            
         });
 
         this.CLIENT.on("messageCreate", async (message) => {
@@ -140,6 +152,7 @@ export interface command {
     };
     ephemeral: boolean;
     run: (LUNA: Luna, interaction: CommandInteraction | undefined, message: Message | undefined, args: Array<string> | undefined) => Promise<any>;
+    autocomplete?: (interaction: AutocompleteInteraction) => Promise<any>;
 }
 
 interface commandOption {
